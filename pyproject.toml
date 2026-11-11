@@ -1,0 +1,115 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hexagenpy"
+dynamic = ["version"]
+description = "HexaGen framework for Python: one contract, many transports (REST, GraphQL, gRPC, Web)."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "rbaezc", email = "raul.baez.camarillo@gmail.com" }]
+keywords = ["framework", "asgi", "rest", "graphql", "grpc", "vertical-slices", "hexagonal", "hexagen"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Typing :: Typed",
+]
+dependencies = [
+    "msgspec>=0.19",
+]
+
+[project.optional-dependencies]
+server = ["granian>=2.0"]
+uvicorn = ["uvicorn>=0.30"]
+graphql = ["graphql-core>=3.2"]
+grpc = []          # D6: grpclib vs grpcio.aio, se decide en la Fase 4
+web = ["jinja2>=3.1"]
+pydantic = ["pydantic>=2.7"]
+all = ["hexagenpy[server,graphql,web]"]
+
+[project.urls]
+Repository = "https://github.com/rbaezc/hexagenpy"
+Changelog = "https://github.com/rbaezc/hexagenpy/blob/main/CHANGELOG.md"
+
+[project.scripts]
+hexapy = "hexagenpy.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=5.0",
+    "mypy>=1.13",
+    "pyright>=1.1.390",
+    "ruff>=0.8",
+    "pre-commit>=4.0",
+]
+bench = [
+    "fastapi>=0.115",
+    "litestar>=2.12",
+    "starlette>=0.41",
+]
+
+[tool.hatch.version]
+path = "src/hexagenpy/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hexagenpy"]
+
+# ---------------------------------------------------------------- ruff
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests", "benchmarks"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "N", "ASYNC", "PT", "PERF", "ANN", "TID"]
+ignore = ["ANN401"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ANN"]
+"benchmarks/**" = ["ANN"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "parents"
+
+# ---------------------------------------------------------------- mypy
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
+warn_unreachable = true
+
+# ---------------------------------------------------------------- pyright
+[tool.pyright]
+include = ["src"]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+
+# ---------------------------------------------------------------- pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-ra --strict-markers --strict-config"
+xfail_strict = true
+
+[tool.coverage.run]
+source = ["hexagenpy"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "\\.\\.\\."]

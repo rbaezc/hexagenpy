@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "projectName": "python_framework",
+    "activeStacks": [],
+    "version": "1.0.0",
+    "lastUpdated": "2026-11-05T17:44:44.239Z"
+  },
+  "facts": [],
+  "ledger": [],
+  "plans": [],
+  "decisions": [
+    {
+      "id": "adr_0001",
+      "number": 1,
+      "title": "hexagenpy reemplaza a pyhexagen",
+      "status": "accepted",
+      "file": "docs/adr/0001-hexagenpy-reemplaza-a-pyhexagen.md",
+      "date": "2026-11-05"
+    }
+  ],
+  "handoffs": [
+    {
+      "id": "handoff_1793900684235",
+      "summary": "Fase 0 de hexagenpy completada: paquete src/hexagenpy (CLI hexapy --version), pyproject con ruff/mypy/pyright strict/pytest (cobertura 100%), CI GitHub Actions (3.12-3.14 x 3 OS), arnés de benchmarks in-process ASGI con baselines (Win/py3.14, body: FastAPI 5,061 · Litestar 8,285 · Starlette 11,558 ops/s), ADRs 0001-0009, reglas en .hexagen/rules/hexagenpy.md. git init sin commit.",
+      "nextSteps": [
+        "Primer commit de la Fase 0 (pendiente de aprobación del usuario)",
+        "Fase 1: diseñar el Contract IR con casos de prueba de OpenAPI, GraphQL y proto",
+        "Fase 1: Model (msgspec), @endpoint/Controller, contenedor DI con scopes, Module/App, errores de dominio"
+      ],
+      "openQuestions": [
+        "D6 (grpclib vs grpcio.aio) se decide en la Fase 4",
+        "run_quality_assurance de HexaCore usa el python del sistema en vez de .venv y llama 'python3' en Windows"
+      ],
+      "createdAt": "2026-11-05T17:44:44.235Z"
+    }
+  ],
+  "qaHistory": [
+    {
+      "stack": "python",
+      "check": "test",
+      "status": "skipped",
+      "failed": 0,
+      "total": 0,
+      "at": "2026-11-05T17:44:17.601Z"
+    },
+    {
+      "stack": "python",
+      "check": "typecheck",
+      "status": "failed",
+      "failed": 1,
+      "total": 1,
+      "at": "2026-11-05T17:44:17.604Z"
+    },
+    {
+      "stack": "python",
+      "check": "lint",
+      "status": "passed",
+      "failed": 0,
+      "total": 0,
+      "at": "2026-11-05T17:44:17.607Z"
+    },
+    {
+      "stack": "python",
+      "check": "build",
+      "status": "passed",
+      "failed": 0,
+      "total": 0,
+      "at": "2026-11-05T17:44:17.609Z"
+    }
+  ]
+}

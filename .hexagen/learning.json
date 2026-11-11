@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "lessons": [],
+  "episodes": [],
+  "openFailures": [
+    {
+      "key": "python:typecheck:.",
+      "stack": "python",
+      "check": "typecheck",
+      "cwd": ".",
+      "signature": "typecheck:<value> exited with code n without reporting individual failures: python was not found; run without arguments to install from the microsoft store, or disable th",
+      "failures": [
+        {
+          "errorMessage": "'python3 -m mypy . --no-error-summary' exited with code 9009 without reporting individual failures: Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Apps > Advanced app settings > App execution aliases."
+        }
+      ],
+      "since": "2026-11-05T17:44:17.681Z",
+      "runs": 1,
+      "offeredLessonIds": []
+    }
+  ]
+}
