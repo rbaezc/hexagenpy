@@ -74,10 +74,10 @@ src = ["src", "tests", "benchmarks"]
 
 [tool.ruff.lint]
 select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "N", "ASYNC", "PT", "PERF", "ANN", "TID"]
-ignore = ["ANN401"]
+ignore = ["ANN401", "N818"]  # N818: NotFound/Conflict are deliberate public names
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["ANN"]
+"tests/**" = ["ANN", "RUF012"]  # msgspec copies mutable defaults safely
 "benchmarks/**" = ["ANN"]
 
 [tool.ruff.lint.flake8-tidy-imports]
@@ -94,6 +94,8 @@ warn_unreachable = true
 [tool.pyright]
 include = ["src"]
 pythonVersion = "3.12"
+venvPath = "."
+venv = ".venv"
 typeCheckingMode = "strict"
 
 # ---------------------------------------------------------------- pytest

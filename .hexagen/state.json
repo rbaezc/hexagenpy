@@ -3,7 +3,7 @@
     "projectName": "python_framework",
     "activeStacks": [],
     "version": "1.0.0",
-    "lastUpdated": "2026-11-05T17:44:44.239Z"
+    "lastUpdated": "2026-11-11T02:10:55.291Z"
   },
   "facts": [],
   "ledger": [],
@@ -32,6 +32,21 @@
         "run_quality_assurance de HexaCore usa el python del sistema en vez de .venv y llama 'python3' en Windows"
       ],
       "createdAt": "2026-11-05T17:44:44.235Z"
+    },
+    {
+      "id": "handoff_1794363055286",
+      "summary": "Fase 1 de hexagenpy completa, sin commit todavía: Contract IR + TypeCompiler (msgspec.inspect), @endpoint/Controller, compat por transporte (graphql/grpc), contenedor DI (scopes, auto scope, generadores, overrides, validación del grafo y visibilidad entre slices), Module, App, Invoker, ErrorMapper, Settings, TestApp. 121 tests, cobertura 99.7%, mypy/pyright strict limpios, check_architecture OK. El camino de invocación cuesta ~14 µs con validación de 10 líneas y ~5 µs con un path param.",
+      "nextSteps": [
+        "Commit de la Fase 1 (pendiente de aprobación del usuario)",
+        "Fase 2: adaptador ASGI + router radix compilado, binding de path/query/header/body desde Operation.args_type",
+        "Fase 2: generador OpenAPI 3.1 desde el IR y app hexagenpy en benchmarks/apps"
+      ],
+      "openQuestions": [
+        "Las uniones de Models requieren tag=True (lo exige msgspec); documentarlo en la guía de contratos",
+        "Los usuarios con ruff verán RUF012 en defaults mutables de Model; documentar o publicar una config recomendada",
+        "HexaCore no reconoce tests/example/slices como slices (espera app/slices)"
+      ],
+      "createdAt": "2026-11-11T02:10:55.286Z"
     }
   ],
   "qaHistory": [
