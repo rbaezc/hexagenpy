@@ -69,7 +69,12 @@ class Invoker:
         (the transport consumes it while ``scope`` is still open).
         """
         compiled = self._compiled[operation_id]
-        kwargs = compiled.bind_args(args, strict=strict)
+        return await self.call(compiled, compiled.bind_args(args, strict=strict), scope)
+
+    async def call(
+        self, compiled: CompiledOperation, kwargs: dict[str, Any], scope: RequestScope
+    ) -> Any:
+        """Run an operation with already-validated keyword arguments (transport hot path)."""
         controller: Any = await self._container.resolve_in(compiled.operation.controller, scope)
         handler: Callable[..., Any] = getattr(controller, compiled.operation.handler)
         op = compiled.operation

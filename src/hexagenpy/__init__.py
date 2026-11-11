@@ -5,7 +5,7 @@ One contract, many transports: REST, GraphQL, gRPC and Web on Vertical Slices.
 
 from hexagenpy.__about__ import __version__
 from hexagenpy.contracts import Controller, Meta, Model, endpoint
-from hexagenpy.core import App, Settings, load_settings
+from hexagenpy.core import App, RequestContext, Settings, load_settings
 from hexagenpy.di import Scope, provide, provide_context, provide_value
 from hexagenpy.errors import (
     BusinessRuleViolation,
@@ -32,6 +32,7 @@ __all__ = [
     "Module",
     "NotFound",
     "PermissionDenied",
+    "RequestContext",
     "Scope",
     "Settings",
     "Unauthenticated",

@@ -2,6 +2,7 @@
 
 from hexagenpy.core.app import App
 from hexagenpy.core.config import Settings, load_settings
+from hexagenpy.core.context import RequestContext
 from hexagenpy.core.error_mapping import ErrorInfo, ErrorMapper
 from hexagenpy.core.invoke import CompiledOperation, Invoker
 
@@ -11,6 +12,7 @@ __all__ = [
     "ErrorInfo",
     "ErrorMapper",
     "Invoker",
+    "RequestContext",
     "Settings",
     "load_settings",
 ]

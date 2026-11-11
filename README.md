@@ -3,8 +3,16 @@
 > **Un contrato, muchos transportes.** El framework de Python de la suite **HexaGen**:
 > REST, GraphQL, gRPC y Web sobre Vertical Slices + Ports & Adapters.
 
-**Estado:** pre-alpha. Fases 0 y 1 completas (contratos, DI, slices); sigue la Fase 2
-(HTTP/REST + OpenAPI). Ver la [hoja de ruta](docs/PLAN.md).
+**Estado:** pre-alpha. Fases 0, 1 y 2a completas: contratos, DI, slices y HTTP/REST con
+OpenAPI 3.1. Ver la [hoja de ruta](docs/PLAN.md).
+
+```python
+from hexagenpy.transports.http import HttpApp, cors
+
+http = HttpApp(App(slices=[orders.module]), middleware=[cors(allow_origins=["*"])])
+# granian --interface asgi myapp.main:http    ·    uvicorn myapp.main:http
+# /openapi.json  ·  /docs
+```
 
 hexagenpy es el reemplazo de [pyhexagen](https://github.com/rbaezc/pyhexagen),
 el scaffolder sobre FastAPI, que pasa a modo mantenimiento.
@@ -24,9 +32,8 @@ Una sola definición genera REST + OpenAPI 3.1, un schema GraphQL y un servicio
 gRPC con su `.proto`, con la misma validación (msgspec), la misma inyección de
 dependencias y el mismo mapeo de errores de dominio.
 
-El núcleo ya funciona sin transporte de red (`TestApp`, `app.invoke`); los transportes
-HTTP, GraphQL y gRPC llegan en las Fases 2 a 4. La app de referencia está en
-[`tests/example/`](tests/example/).
+HTTP ya funciona; GraphQL y gRPC llegan en las Fases 3 y 4 desde el mismo contrato.
+La app de referencia está en [`tests/example/`](tests/example/).
 
 ## Desarrollo
 

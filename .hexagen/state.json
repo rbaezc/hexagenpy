@@ -3,7 +3,7 @@
     "projectName": "python_framework",
     "activeStacks": [],
     "version": "1.0.0",
-    "lastUpdated": "2026-11-11T02:10:55.291Z"
+    "lastUpdated": "2026-11-11T02:25:59.550Z"
   },
   "facts": [],
   "ledger": [],
@@ -47,6 +47,20 @@
         "HexaCore no reconoce tests/example/slices como slices (espera app/slices)"
       ],
       "createdAt": "2026-11-11T02:10:55.286Z"
+    },
+    {
+      "id": "handoff_1794363959548",
+      "summary": "Fase 2a de hexagenpy completa, sin commit: HttpApp ASGI, router trie, binding path/query/header/cookie/body, Problem Details RFC 9457, NDJSON streams, RequestContext, OpenAPI 3.1 desde el IR + /docs, CORS y HttpTestClient. 172 tests, 99.1% de cobertura, gate limpio, probado con uvicorn y granian. Benchmarks in-process en body: hexagenpy 41.9k ops/s vs FastAPI 6.2k y Litestar 7.9k. Remoto origin = github.com/rbaezc/hexagenpy (público, vacío, sin push todavía).",
+      "nextSteps": [
+        "Commit de la Fase 2a y push a origin (pendiente de confirmación)",
+        "Verificar que el CI pase en GitHub (3.12-3.14 x 3 OS)",
+        "Fase 2b: multipart/archivos, compresión, auth API key/bearer, export contracts/<slice>.openapi, carga end-to-end (oha) en CI Linux"
+      ],
+      "openQuestions": [
+        "msgspec reporta solo el primer error de validación del body (no todos)",
+        "¿Respuestas HTTP personalizadas (headers/cookies de respuesta) en 2b?"
+      ],
+      "createdAt": "2026-11-11T02:25:59.548Z"
     }
   ],
   "qaHistory": [

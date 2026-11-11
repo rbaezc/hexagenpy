@@ -13,10 +13,11 @@ from typing import Any
 from hexagenpy.contracts import ir
 from hexagenpy.contracts.compat import check_registry
 from hexagenpy.contracts.registry import ContractRegistry
+from hexagenpy.core.context import RequestContext
 from hexagenpy.core.error_mapping import ErrorMapper
 from hexagenpy.core.invoke import Invoker
 from hexagenpy.di.container import Container, RequestScope
-from hexagenpy.di.providers import Provider, provide
+from hexagenpy.di.providers import Provider, provide, provide_context
 from hexagenpy.errors import ContractError, ErrorKind
 from hexagenpy.slices.module import Module
 
@@ -58,7 +59,11 @@ class App:
             )
         app_providers = [p if isinstance(p, Provider) else provide(p) for p in providers]
         self.container = Container(
-            [*app_providers, *(p for m in self.slices for p in m.all_providers())],
+            [
+                provide_context(RequestContext),
+                *app_providers,
+                *(p for m in self.slices for p in m.all_providers()),
+            ],
             exports={m.name: frozenset(m.exports) for m in self.slices},
         )
         self.invoker = Invoker(self.container, self.contracts.operations)
@@ -120,8 +125,9 @@ class App:
 
     # ------------------------------------------------------------------ execution
 
-    def request_scope(self, context: Mapping[object, Any] | None = None) -> RequestScope:
-        return self.container.request_scope(context)
+    def request_scope(self, context: RequestContext | None = None) -> RequestScope:
+        """Open a request scope; ``context`` defaults to a ``"local"`` RequestContext."""
+        return self.container.request_scope({RequestContext: context or RequestContext("local")})
 
     async def invoke(self, operation_id: str, args: Any = None, *, strict: bool = True) -> Any:
         """Run one operation in its own request scope (convenience for scripts and tests).
